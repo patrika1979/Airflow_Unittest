@@ -3,7 +3,11 @@ aws s3 mb s3://cdt-dev-codepipeline-artifacts
 
 #create admin role to be assumed by Cloud9
 aws iam create-role --role-name Cloud9Admin --assume-role-policy-document file://cpAssumeRolePolicyDocumentAdmin
-aws iam put-role-policy --role-name Cloud9Admin --policy-name  cloud9-access --policy-document file://cpPolicyAdmin.json
+aws iam create-instance-profile --instance-profile-name ec2Admin
+aws iam add-role-to-instance-profile --instance-profile-name ec2Admin --role-name Cloud9Admin
+aws ec2 associate-iam-instance-profile --iam-instance-profile Name=ec2Admin --instance-id $(aws ec2 describe-instances --filters \
+"Name=tag:Environment,Values=AWS Example" | jq .Reservations[0].Instances[0].InstanceId) | awk '{print $1}' | tr -d \"
+
 
 #create cloud9
 aws cloudformation deploy --stack-name cloud9 --template-file cloud9.yml --capabilities CAPABILITY_NAMED_IAM
