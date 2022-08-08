@@ -1,0 +1,2 @@
+aws cloudformation deploy --stack-name cloud9 --template-file cloud9.yml --capabilities CAPABILITY_NAMED_IAM
+

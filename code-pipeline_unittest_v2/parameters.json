@@ -1,0 +1,19 @@
+[
+  {
+    "ParameterKey": "GitHubUser",
+    "ParameterValue": "patrika1979"
+  }, 
+  {
+    "ParameterKey": "GitHubToken",
+    "ParameterValue": "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"
+  },
+  {
+    "ParameterKey": "GitSourceRepo",
+    "ParameterValue": "airflow-eks-docker"
+  },
+  {
+    "ParameterKey": "GitBranch",
+    "ParameterValue": "dev"
+  }
+  
+]
