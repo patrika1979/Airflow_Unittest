@@ -1,0 +1,20 @@
+aws cloudformation deploy --stack-name cloud9 --template-file cloud9.yml --capabilities CAPABILITY_NAMED_IAM
+
+#create role for ec2 in AWS cmd
+
+aws iam create-role --role-name ec2-admin --assume-role-policy-document file://cpAssumeRolePolicyDocumentAdmin.json
+aws iam attach-role-policy --role-name ec2-admin --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+
+aws iam create-instance-profile --instance-profile-name ec2-instance-profile
+aws iam add-role-to-instance-profile --role-name ec2-admin --instance-profile-name ec2-instance-profile
+
+#attach role to ec2-admin
+#take instance id
+aws ec2 describe instances
+aws ec2 associate-iam-instance-profile --instance-id i-0883c39df6d185986 --iam-instance-profile Name=ec2-instance-profile
+
+
+#change security group
+inbound tcp port 8080
+inbound tcp port 5432
+
